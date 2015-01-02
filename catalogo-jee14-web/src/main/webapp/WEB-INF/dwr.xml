@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN" "http://getahead.org/dwr/dwr20.dtd">
+<dwr>
+	<allow>
+		<create creator="new" javascript="ControllerDWR">
+			<param name="class" value="com.valhala.jee14.catalogo.dwr.ControllerDWR" />
+		</create>
+		<convert match="com.valhala.jee14.catalogo.vo.*" converter="bean" />
+		<convert match="java.lang.Exception" converter="exception">
+			<param name="include" value="message, lineNumber" />
+		</convert>
+	</allow>
+</dwr>
