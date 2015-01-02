@@ -1,0 +1,4 @@
+<mbean code="org.jboss.mq.server.jmx.Queue"
+ name="jboss.mq.destination:service=Queue,name=auditoria-queue">
+  <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+</mbean>
