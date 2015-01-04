@@ -18,47 +18,54 @@ import com.valhala.jee14.catalogo.message.ObjetoEnvio;
 import com.valhala.jee14.catalogo.modelo.Auditoria;
 import com.valhala.jee14.catalogo.patterns.servicelocator.ServiceLocator;
 
+/**
+ * MDB utilizado para escutar a fila JMS utilizada para envio de requisicoes
+ * relacionadas a auditoria no sistema.
+ *
+ * @author Bruno
+ */
 public class AuditoriaMDB implements MessageDrivenBean, MessageListener {
-	
-	private static final long serialVersionUID = -5789891997803558342L;
-	private static final Logger LOGGER = Logger.getLogger(AuditoriaMDB.class);
-	
-	private MessageDrivenContext context = null;
-	
-	public AuditoriaMDB() {
-		super();
-	}
-	
-	public void onMessage(Message message) {
-		ObjectMessage mensagem = (ObjectMessage) message;
-		try {
-			ObjetoEnvio envio = (ObjetoEnvio) mensagem.getObject();
-			Auditoria auditoria = (Auditoria) envio.getConteudo();
-			AuditoriaEJBHome home = (AuditoriaEJBHome) ServiceLocator.getInstance().getServiceResolvido(AuditoriaEJBHome.JNDI_NAME, AuditoriaEJBHome.class);
-			AuditoriaEJB auditoriaEJB = home.create();
-			auditoriaEJB.inserirAuditoria(auditoria);
-		} catch (JMSException e) {
-			LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
-		} catch (RemoteException e) {
-			LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
-		} catch (CreateException e) {
-			LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
-		} catch (CatalagoException e) {
-			LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
-		}
-	}
 
-	public void ejbCreate() throws EJBException {
-		
-	}
-	
-	public void ejbRemove() throws EJBException {
+    private static final long serialVersionUID = -5789891997803558342L;
+    private static final Logger LOGGER = Logger.getLogger(AuditoriaMDB.class);
 
-	}
+    private MessageDrivenContext context = null;
 
-	public void setMessageDrivenContext(MessageDrivenContext context)
-			throws EJBException {
-		this.context = context;
-	}
+    public AuditoriaMDB() {
+        super();
+    } // fim do metodo construtor.
 
-}
+    /*
+     Metodo da API para processar a mensagem enviada na fila.
+     */
+    public void onMessage(Message message) {
+        ObjectMessage mensagem = (ObjectMessage) message;
+        try {
+            ObjetoEnvio envio = (ObjetoEnvio) mensagem.getObject();
+            Auditoria auditoria = (Auditoria) envio.getConteudo();
+            AuditoriaEJBHome home = (AuditoriaEJBHome) ServiceLocator.getInstance().getServiceResolvido(AuditoriaEJBHome.JNDI_NAME, AuditoriaEJBHome.class);
+            AuditoriaEJB auditoriaEJB = home.create();
+            auditoriaEJB.inserirAuditoria(auditoria);
+        } catch (JMSException e) {
+            LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
+        } catch (RemoteException e) {
+            LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
+        } catch (CreateException e) {
+            LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
+        } catch (CatalagoException e) {
+            LOGGER.error("Ocorreu erro ao processar mensagem da fila.", e);
+        } // fim do bloco try/catch
+    } // fim do metodo onMessage
+
+    public void ejbCreate() throws EJBException {
+    }
+
+    public void ejbRemove() throws EJBException {
+    }
+
+    public void setMessageDrivenContext(MessageDrivenContext context)
+            throws EJBException {
+        this.context = context;
+    }
+
+} // fim da classe AuditoriaMDB

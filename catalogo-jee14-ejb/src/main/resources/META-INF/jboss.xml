@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.2//EN" "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
 <jboss>
-	<enterprise-beans>
-		<message-driven>
-			<ejb-name>LivroMDB</ejb-name>
-			<destination-jndi-name>queue/livros-queue</destination-jndi-name>
-			<message-destination-ref>
-				<message-destination-ref-name>queue/livros-queue</message-destination-ref-name>
-				<jndi-name>queue/livros-queue</jndi-name>
-			</message-destination-ref>
-		</message-driven>
+    <enterprise-beans>
+        <message-driven>
+            <ejb-name>LivroMDB</ejb-name>
+            <destination-jndi-name>queue/livros-queue</destination-jndi-name>
+            <message-destination-ref>
+                <message-destination-ref-name>queue/livros-queue</message-destination-ref-name>
+                <jndi-name>queue/livros-queue</jndi-name>
+            </message-destination-ref>
+        </message-driven>
 		
-		<message-driven>
-			<ejb-name>AuditoriaMDB</ejb-name>
-			<destination-jndi-name>queue/auditoria-queue</destination-jndi-name>
-			<message-destination-ref>
-				<message-destination-ref-name>queue/auditoria-queue</message-destination-ref-name>
-				<jndi-name>queue/auditoria-queue</jndi-name>
-			</message-destination-ref>
-		</message-driven>
-	</enterprise-beans>
+        <message-driven>
+            <ejb-name>AuditoriaMDB</ejb-name>
+            <destination-jndi-name>queue/auditoria-queue</destination-jndi-name>
+            <message-destination-ref>
+                <message-destination-ref-name>queue/auditoria-queue</message-destination-ref-name>
+                <jndi-name>queue/auditoria-queue</jndi-name>
+            </message-destination-ref>
+        </message-driven>
+    </enterprise-beans>
 </jboss>

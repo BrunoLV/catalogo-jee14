@@ -10,33 +10,31 @@ import javax.jms.ObjectMessage;
 
 public class LivroMDB implements MessageDrivenBean, MessageListener {
 
-	private static final long serialVersionUID = 8518867766476822946L;
+    private static final long serialVersionUID = 8518867766476822946L;
 
-	public LivroMDB() {
-		super();
-	}
+    public LivroMDB() {
+        super();
+    }
 
-	public void onMessage(Message message) {
-		System.out.println("Ta indo....");
-		System.out.println(message);
-		ObjectMessage message2 = (ObjectMessage) message;
-		try {
-			System.out.println(message2.getObject());
-		} catch (JMSException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+    public void onMessage(Message message) {
+        System.out.println("Ta indo....");
+        System.out.println(message);
+        ObjectMessage objeto = (ObjectMessage) message;
+        try {
+            System.out.println(objeto.getObject());
+        } catch (JMSException e) {
+        }
+    }
 
-	public void ejbCreate() throws EJBException {
+    public void ejbCreate() throws EJBException {
 
-	}
+    }
 
-	public void ejbRemove() throws EJBException {
+    public void ejbRemove() throws EJBException {
 
-	}
+    }
 
-	public void setMessageDrivenContext(MessageDrivenContext context) throws EJBException {
-	}
+    public void setMessageDrivenContext(MessageDrivenContext context) throws EJBException {
+    }
 
 }

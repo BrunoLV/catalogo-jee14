@@ -21,162 +21,162 @@ import com.valhala.jee14.catalogo.patterns.servicelocator.ServiceLocator;
 
 public class LivroEJBBean implements SessionBean {
 
-	private static final long serialVersionUID = 9148264587809786280L;
+    private static final long serialVersionUID = 9148264587809786280L;
 
-	private SessionContext context;
+    private SessionContext context;
 
-	public void inserirLivro(Livro livro) throws CatalagoException {
-		Connection connection = null;
-		LivroDao dao = null;
-		try {
-			dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
-			connection = openConnection("java:/livroDS", DataSource.class);
-			dao.setConnection(connection);
-			dao.inserir(livro);
-		} catch (DaoException e) {
-			context.setRollbackOnly();
-			throw new CatalagoException(e.getMessage(), e);
-		} catch (FactoryException e) {
-			throw new CatalagoException(e);
-		} finally {
-			closeConnection(connection);
-		}
-	} // fim do metodo inserirLivro
+    public void inserirLivro(Livro livro) throws CatalagoException {
+        Connection connection = null;
+        LivroDao dao = null;
+        try {
+            dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
+            connection = openConnection("java:/livroDS", DataSource.class);
+            dao.setConnection(connection);
+            dao.inserir(livro);
+        } catch (DaoException e) {
+            context.setRollbackOnly();
+            throw new CatalagoException(e.getMessage(), e);
+        } catch (FactoryException e) {
+            throw new CatalagoException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    } // fim do metodo inserirLivro
 
-	public Integer inserirLivroRetornandoCodigoGerado(Livro livro) throws CatalagoException {
-		Connection connection = null;
-		Integer codigoGerado = null;
-		LivroDao dao = null;
-		try {
-			dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
-			connection = openConnection("java:/livroDS", DataSource.class);
-			dao.setConnection(connection);
-			codigoGerado = dao.inserirRetornandoKey(livro);
-		} catch (DaoException e) {
-			context.setRollbackOnly();
-			throw new CatalagoException(e.getMessage(), e);
-		} catch (FactoryException e) {
-			throw new CatalagoException(e);
-		} finally {
-			closeConnection(connection);
-		}
-		return codigoGerado;
-	}
+    public Integer inserirLivroRetornandoCodigoGerado(Livro livro) throws CatalagoException {
+        Connection connection = null;
+        Integer codigoGerado = null;
+        LivroDao dao = null;
+        try {
+            dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
+            connection = openConnection("java:/livroDS", DataSource.class);
+            dao.setConnection(connection);
+            codigoGerado = dao.inserirRetornandoKey(livro);
+        } catch (DaoException e) {
+            context.setRollbackOnly();
+            throw new CatalagoException(e.getMessage(), e);
+        } catch (FactoryException e) {
+            throw new CatalagoException(e);
+        } finally {
+            closeConnection(connection);
+        }
+        return codigoGerado;
+    }
 
-	public void atualizarDadosDoLivro(Livro livro) throws CatalagoException {
-		Connection connection = null;
-		LivroDao dao = null;
-		try {
-			dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
-			connection = openConnection("java:/livroDS", DataSource.class);
-			dao.setConnection(connection);
-			dao.atualizar(livro);
-		} catch (DaoException e) {
-			context.setRollbackOnly();
-			throw new CatalagoException(e.getMessage(), e);
-		} catch (FactoryException e) {
-			throw new CatalagoException(e);
-		} finally {
-			closeConnection(connection);
-		}
-	}
+    public void atualizarDadosDoLivro(Livro livro) throws CatalagoException {
+        Connection connection = null;
+        LivroDao dao = null;
+        try {
+            dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
+            connection = openConnection("java:/livroDS", DataSource.class);
+            dao.setConnection(connection);
+            dao.atualizar(livro);
+        } catch (DaoException e) {
+            context.setRollbackOnly();
+            throw new CatalagoException(e.getMessage(), e);
+        } catch (FactoryException e) {
+            throw new CatalagoException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
 
-	public void deletarLivro(Integer codigo) throws CatalagoException {
-		Connection connection = null;
-		LivroDao dao = null;
-		try {
-			dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
-			connection = openConnection("java:/livroDS", DataSource.class);
-			dao.setConnection(connection);
-			dao.deletar(codigo);
-		} catch (DaoException e) {
-			context.setRollbackOnly();
-			throw new CatalagoException(e.getMessage(), e);
-		} catch (FactoryException e) {
-			throw new CatalagoException(e);
-		} finally {
-			closeConnection(connection);
-		}
-	}
+    public void deletarLivro(Integer codigo) throws CatalagoException {
+        Connection connection = null;
+        LivroDao dao = null;
+        try {
+            dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
+            connection = openConnection("java:/livroDS", DataSource.class);
+            dao.setConnection(connection);
+            dao.deletar(codigo);
+        } catch (DaoException e) {
+            context.setRollbackOnly();
+            throw new CatalagoException(e.getMessage(), e);
+        } catch (FactoryException e) {
+            throw new CatalagoException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
 
-	public Livro buscarLivroPorCodigo(Integer codigo) throws CatalagoException {
-		Connection connection = null;
-		LivroDao dao = null;
-		Livro livro = null;
-		try {
-			dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO); 
-			connection = openConnection("java:/livroDS", DataSource.class);
-			dao.setConnection(connection);
-			livro = dao.buscarPorCodigo(codigo);
-		} catch (DaoException e) {
-			throw new CatalagoException(e.getMessage(), e);
-		} catch (FactoryException e) {
-			throw new CatalagoException(e);
-		} finally {
-			closeConnection(connection);
-		}
-		return livro;
-	}
+    public Livro buscarLivroPorCodigo(Integer codigo) throws CatalagoException {
+        Connection connection = null;
+        LivroDao dao = null;
+        Livro livro = null;
+        try {
+            dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
+            connection = openConnection("java:/livroDS", DataSource.class);
+            dao.setConnection(connection);
+            livro = dao.buscarPorCodigo(codigo);
+        } catch (DaoException e) {
+            throw new CatalagoException(e.getMessage(), e);
+        } catch (FactoryException e) {
+            throw new CatalagoException(e);
+        } finally {
+            closeConnection(connection);
+        }
+        return livro;
+    }
 
-	public List buscarTodosLivros() throws CatalagoException {
-		Connection connection = null;
-		List livros = null;
-		LivroDao dao = null;
-		try {
-			dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
-			connection = openConnection("java:/livroDS", DataSource.class);
-			dao.setConnection(connection);
-			livros = dao.buscarTodos();
-		} catch (DaoException e) {
-			throw new CatalagoException(e.getMessage(), e);
-		} catch (FactoryException e) {
-			throw new CatalagoException(e);
-		} finally {
-			closeConnection(connection);
-		}
-		return livros;
-	}
-	
-	private final void closeConnection(Connection connection) {
-		try {
-			if (connection != null) {
-				connection.close();
-				connection = null;
-			}	
-		} catch (Exception e) {
-			
-		}
-	}
-	
-	private final Connection openConnection(final String nomeDataSource, Class classe) throws CatalagoException {
-		DataSource dataSource = (DataSource) ServiceLocator.getInstance().getServiceResolvido(nomeDataSource, classe);
-		Connection connection = null;
-		try {
-			connection = dataSource.getConnection();
-		} catch (SQLException e) {
-			throw new CatalagoException(e.getMessage(), e);
-		}
-		return connection;
-	}
+    public List buscarTodosLivros() throws CatalagoException {
+        Connection connection = null;
+        List livros = null;
+        LivroDao dao = null;
+        try {
+            dao = (LivroDao) AbstractFactory.obterFabricaDao().obterObjeto(DaoJdbcFactory.LIVRO_DAO);
+            connection = openConnection("java:/livroDS", DataSource.class);
+            dao.setConnection(connection);
+            livros = dao.buscarTodos();
+        } catch (DaoException e) {
+            throw new CatalagoException(e.getMessage(), e);
+        } catch (FactoryException e) {
+            throw new CatalagoException(e);
+        } finally {
+            closeConnection(connection);
+        }
+        return livros;
+    }
 
-	public void ejbCreate() throws EJBException {
-		
-	}
+    private void closeConnection(Connection connection) {
+        try {
+            if (connection != null) {
+                connection.close();
+                connection = null;
+            }
+        } catch (Exception e) {
 
-	public void ejbActivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-	}
+        }
+    }
 
-	public void ejbPassivate() throws EJBException, RemoteException {
-		// TODO Auto-generated method stub
-	}
+    private Connection openConnection(final String nomeDataSource, Class classe) throws CatalagoException {
+        DataSource dataSource = (DataSource) ServiceLocator.getInstance().getServiceResolvido(nomeDataSource, classe);
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException e) {
+            throw new CatalagoException(e.getMessage(), e);
+        }
+        return connection;
+    }
 
-	public void ejbRemove() throws EJBException, RemoteException {
+    public void ejbCreate() throws EJBException {
 
-	}
+    }
 
-	public void setSessionContext(SessionContext context) throws EJBException, RemoteException {
-		this.context = context;
-	}
+    public void ejbActivate() throws EJBException, RemoteException {
+        // TODO Auto-generated method stub
+    }
+
+    public void ejbPassivate() throws EJBException, RemoteException {
+        // TODO Auto-generated method stub
+    }
+
+    public void ejbRemove() throws EJBException, RemoteException {
+
+    }
+
+    public void setSessionContext(SessionContext context) throws EJBException, RemoteException {
+        this.context = context;
+    }
 
 }
